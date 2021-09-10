@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -21,32 +21,31 @@ namespace CoreAndFood.Controllers
 		{
 			return View();
 		}
-		
-		
-		//[AllowAnonymous]
-		//[HttpPost]
-		//public async Task<IActionResult> Index(Admin p)
-		//{
-		//	var datavalue = c.Admins
-		//		(x => x.UserName == p.UserName && x.Password == p.Password);
-		//	if (datavalue != null)
-		//	{
-		//		var claims = new List<Claim>
-		//		{
-		//			new Claim(ClaimTypes.Name,p.UserName)
-		//		};
-		//		var useridentity = new ClaimsIdentity(claims, "Login");
-		//		ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
-		//		await HttpContext.SignInAsync(principal);
-		//		return RedirectToAction("Index", "Category");
-		//	}
-		//	return View();
-		//}
-		//[HttpGet]
-		//public async Task<IActionResult> LogOut()
-		//{
-		//	await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-		//	return RedirectToAction("Index", "Login");
-		//}
-	}
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> Index(Idare p)
+        {
+            var datavalue = c.Idares;
+            if (datavalue != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name,p.Idarekullaniciadi)
+                };
+                var useridentity = new ClaimsIdentity(claims, "Login");
+                ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
+                await HttpContext.SignInAsync(principal);
+                return RedirectToAction("Index", "Category");
+            }
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Login");
+        }
+    }
 }
